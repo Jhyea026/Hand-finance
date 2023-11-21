@@ -1,6 +1,6 @@
-# handfinance
+# Hand-finance
 
-A new Flutter project.
+This is hand finance, a personal financial management application, developed with the Flutter framework for the programming discipline for mobile devices.
 
 ## Getting Started
 
