@@ -2,16 +2,26 @@ import 'package:flutter/material.dart';
 
 class Cards extends StatelessWidget {
   List<Widget> lis;
-  double altura, largura;
+  double altura;
 
-  Cards({super.key, required this.lis, this.altura = 400, this.largura = 369});
+  Cards({super.key, required this.lis, this.altura = 350});
+
+
+
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.only(left: 6, right: 6),
-      child: Column(
+    return
+    Container(
+    width: MediaQuery.of(context).size.width * 0.99,
+    height: altura,
+    decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25)),
+      color: Color.fromARGB(255, 255, 255, 255,
+      )),
+    margin: EdgeInsets.only(left: 6, right: 6),
+     child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: lis,
-      ),
+    )
     );
   }
 }
