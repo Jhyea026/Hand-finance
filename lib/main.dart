@@ -1,8 +1,11 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:handfinance/Colors/cor.dart';
 import 'package:handfinance/Widgets/botao.dart';
 import 'package:handfinance/Widgets/bottomSheet.dart';
-import 'package:handfinance/Widgets/welcome.dart';
+import 'package:handfinance/Windows/forgotPassword.dart';
+import 'package:handfinance/Windows/welcome.dart';
 
 void main() {
   runApp(Main());
@@ -15,7 +18,7 @@ class Main extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Welcome(),
+      home: forgotPassword(),
     );
   }
 }
