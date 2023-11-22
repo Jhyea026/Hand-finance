@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:handfinance/Colors/cor.dart';
 import 'package:handfinance/Widgets/botao.dart';
 import 'package:handfinance/Widgets/bottomSheet.dart';
+import 'package:handfinance/Windows/emailVerify.dart';
 import 'package:handfinance/Windows/forgotPassword.dart';
+import 'package:handfinance/Windows/login.dart';
+import 'package:handfinance/Windows/login_creat.dart';
 import 'package:handfinance/Windows/welcome.dart';
 
 void main() {
@@ -18,7 +21,7 @@ class Main extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: forgotPassword(),
+      home: Welcome(),
     );
   }
 }

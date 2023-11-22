@@ -1,15 +1,12 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, camel_case_types
 
 import 'package:flutter/material.dart';
 import 'package:handfinance/Colors/cor.dart';
 import 'package:handfinance/Widgets/botao.dart';
 import 'package:handfinance/Widgets/bottomSheet.dart';
-import 'package:handfinance/Windows/login.dart';
-import 'package:handfinance/Windows/login_creat.dart';
 
-// ignore: camel_case_types
-class Welcome extends StatelessWidget {
-  const Welcome({super.key});
+class emailVerify extends StatelessWidget {
+  const emailVerify({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,21 +22,16 @@ class Welcome extends StatelessWidget {
             ),
             Cards(lis: [
               Text(
-                'Seja bem vindo !',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                'Verifique seu email',
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black54),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 62, right: 62),
                 child: Text(
-                  'Tenha um controle da sua vida financeira na palma da sua mão.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 62, right: 62),
-                child: Text(
-                  'Cadastre-se, crie planejamentos, controle todos os seus gastos',
+                  'Enviamos instruções de redefinição de senha para:',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 14,
@@ -47,26 +39,33 @@ class Welcome extends StatelessWidget {
                       color: Colors.black45),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(left: 56, right: 56),
+                child: Text(
+                  'Example@example.com',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Cor.Primary800),
+                ),
+              ),
               Container(
                 child: Column(
                   children: [
                     Botao(
-                        label: 'Cadastrar',
+                        label: 'Não recebeu? Reenviar email',
                         onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) {
-                              return loginCreateAccount();
-                            }),
-                          );
+                          // Navigator.of(context).push(
+                          //   MaterialPageRoute(builder: (context) {
+                          //     return loginCreateAccount();
+                          //   }),
+                          // );
                         }),
                     Botao(
-                      label: 'Já sou cadastrado',
+                      label: 'Trocar email',
                       onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) {
-                            return Login();
-                          }),
-                        );
+                        Navigator.pop(context);
                       },
                       style: false,
                     ),

@@ -5,6 +5,7 @@ import 'package:handfinance/Colors/cor.dart';
 import 'package:handfinance/Widgets/botao.dart';
 import 'package:handfinance/Widgets/bottomSheet.dart';
 import 'package:handfinance/Widgets/textField.dart';
+import 'package:handfinance/Windows/emailVerify.dart';
 
 class forgotPassword extends StatelessWidget {
   const forgotPassword({super.key});
@@ -14,55 +15,72 @@ class forgotPassword extends StatelessWidget {
     TextEditingController emailController = TextEditingController();
     return Scaffold(
       backgroundColor: Cor.Primary50,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Image.asset('lib/Assets/HandFinance-Logo.png'),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.13,
-            ),
-            Cards(lis: [
+      body: GestureDetector(
+        onTap: () {
+          // Fecha o teclado quando toca fora do campo de texto
+          FocusScope.of(context).unfocus();
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
               SizedBox(
-                height: 0,
+                height: MediaQuery.of(context).size.height * 0.164,
               ),
-              Text(
-                'Esqueceu sua senha ?',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black54),
+              Image.asset('lib/Assets/HandFinance-Logo.png'),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.13,
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 62, right: 62),
-                child: Text(
-                  'Digite seu email para que possamos recuperá-la para você.',
-                  textAlign: TextAlign.center,
+              Cards(lis: [
+                SizedBox(
+                  height: 0,
+                ),
+                Text(
+                  'Esqueceu sua senha ?',
                   style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 16,
                       fontWeight: FontWeight.w500,
-                      color: Colors.black45),
+                      color: Colors.black54),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 62, right: 62),
-                child: myTextField(
-                  labText: 'Email',
-                  controller: emailController,
+                Padding(
+                  padding: const EdgeInsets.only(left: 62, right: 62),
+                  child: Text(
+                    'Digite seu email para que possamos recuperá-la para você.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black45),
+                  ),
                 ),
-              ),
-              Container(
-                child: Column(
-                  children: [
-                    Botao(label: 'Redefinir', onPressed: () {}),
-                    SizedBox(
-                      height: 30,
-                    )
-                  ],
+                Padding(
+                  padding: const EdgeInsets.only(left: 62, right: 62),
+                  child: myTextField(
+                    labText: 'Email',
+                    controller: emailController,
+                  ),
                 ),
-              )
-            ])
-          ],
+                Container(
+                  child: Column(
+                    children: [
+                      Botao(
+                          label: 'Redefinir',
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) {
+                                return emailVerify();
+                              }),
+                            );
+                          }),
+                      SizedBox(
+                        height: 30,
+                      )
+                    ],
+                  ),
+                )
+              ])
+            ],
+          ),
         ),
       ),
     );
