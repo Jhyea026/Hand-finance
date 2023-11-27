@@ -1,11 +1,18 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, must_be_immutable
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class HomeCards extends StatefulWidget {
   String titulo;
   List<Widget> conteudo;
-  HomeCards({super.key, required this.titulo, required this.conteudo});
+  double altura;
+  HomeCards(
+      {super.key,
+      required this.titulo,
+      required this.conteudo,
+      this.altura = 159});
 
   @override
   State<HomeCards> createState() => _CardsState();
@@ -16,7 +23,7 @@ class _CardsState extends State<HomeCards> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 20, right: 26, left: 26),
-      height: 159,
+      height: widget.altura,
       width: 360,
       decoration: BoxDecoration(
           color: Colors.white,
