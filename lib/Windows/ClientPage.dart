@@ -63,24 +63,18 @@ class _MyClientPagePageState extends State<ClientPage> {
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-                color: Cor.Primary700,
-              ),
+              icon: Image.asset('lib/Assets/Home.png'),
               label: 'Início'),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.history,
-              color: Cor.Primary700,
-            ),
+            icon: Image.asset('lib/Assets/Transactions.png'),
             label: 'Transações',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite, color: Cor.Primary700),
+            icon: Image.asset('lib/Assets/Planning.png'),
             label: 'Planejamento',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: Cor.Primary700),
+            icon: Image.asset('lib/Assets/Goals.png'),
             label: 'Objetivo',
           ),
           // Adicione mais BottomNavigationBarItems conforme necessário
