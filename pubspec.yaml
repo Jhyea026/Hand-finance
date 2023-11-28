@@ -68,6 +68,7 @@ flutter:
     - lib/Assets/Win.png
     - lib/Assets/Loss.png
     - lib/Assets/Credit_card.png
+    - lib/Assets/Star.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

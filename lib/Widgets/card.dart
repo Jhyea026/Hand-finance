@@ -23,7 +23,7 @@ class _CardsState extends State<HomeCards> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 20, right: 26, left: 26),
-      height: widget.altura,
+      padding: EdgeInsets.only(bottom: 10),
       width: 360,
       decoration: BoxDecoration(
           color: Colors.white,

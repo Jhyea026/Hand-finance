@@ -32,6 +32,7 @@ class _MyClientPagePageState extends State<ClientPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         toolbarHeight: 82,
         backgroundColor: Cor.Primary400,
         title: Row(

@@ -1,12 +1,14 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:handfinance/Colors/cor.dart';
 import 'package:handfinance/Widgets/botao.dart';
 import 'package:handfinance/Widgets/bottomSheet.dart';
 import 'package:handfinance/Widgets/textField.dart';
+import 'package:handfinance/Windows/ClientPage.dart';
 import 'package:handfinance/Windows/forgotPassword.dart';
+import 'package:handfinance/Windows/home.dart';
 import 'package:handfinance/Windows/login_creat.dart';
 
 class Login extends StatelessWidget {
@@ -87,7 +89,13 @@ class Login extends StatelessWidget {
                           ),
                           Botao(
                             label: 'Entrar',
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(builder: (context) {
+                                  return ClientPage();
+                                }),
+                              );
+                            },
                             style: true,
                           ),
                           Botao(
