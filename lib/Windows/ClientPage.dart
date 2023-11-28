@@ -62,12 +62,11 @@ class _MyClientPagePageState extends State<ClientPage> {
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              color: Cor.Primary700,
-            ),
-            label: 'Início',
-          ),
+              icon: Icon(
+                Icons.home,
+                color: Cor.Primary700,
+              ),
+              label: 'Início'),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.history,

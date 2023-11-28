@@ -65,6 +65,9 @@ flutter:
     - lib/Assets/HandFinance-Logo2.png
     - lib/Assets/Facebook.png
     - lib/Assets/Google.png
+    - lib/Assets/Win.png
+    - lib/Assets/Loss.png
+    - lib/Assets/Credit_card.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
