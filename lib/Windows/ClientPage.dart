@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, library_private_types_in_public_api, use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, library_private_types_in_public_api, use_key_in_widget_constructors, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
 import 'package:handfinance/Colors/cor.dart';
@@ -14,6 +14,7 @@ class ClientPage extends StatefulWidget {
 
 class _MyClientPagePageState extends State<ClientPage> {
   int _currentIndex = 0;
+  bool visible = false;
   late PageController _pageController;
 
   @override
@@ -35,16 +36,41 @@ class _MyClientPagePageState extends State<ClientPage> {
         automaticallyImplyLeading: false,
         toolbarHeight: 82,
         backgroundColor: Cor.Primary400,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        title: Column(
           children: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
-            SizedBox(child: Image.asset('lib/Assets/HandFinance-Logo2.png')),
-            IconButton(onPressed: () {}, icon: Icon(Icons.person))
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
+                SizedBox(child: Image.asset('lib/Assets/HandFinance-Logo2.png')),
+                IconButton(onPressed: () {}, icon: Icon(Icons.person))
+              ],
+            ),
+            Visibility(
+              visible: false,
+              child: Center(
+                child: Container(
+                  child: Row(
+                    children: [
+                      Column(
+                        children: [
+                          Text('data'),
+                          Text('data2')
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            )
           ],
         ),
+        
       ),
-      body: PageView(
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: FloatingActionButton(onPressed: () {}, backgroundColor: Cor.Primary700),
+      body:
+      PageView(
         controller: _pageController,
         children: [
           Home(),
@@ -63,6 +89,7 @@ class _MyClientPagePageState extends State<ClientPage> {
         fixedColor: Cor.Primary700,
         currentIndex: _currentIndex,
         items: [
+          
           BottomNavigationBarItem(
               icon: Image.asset('lib/Assets/Home.png'), label: 'Principal'),
           BottomNavigationBarItem(
@@ -79,6 +106,7 @@ class _MyClientPagePageState extends State<ClientPage> {
           ),
           // Adicione mais BottomNavigationBarItems conforme necessário
         ],
+        
         onTap: (index) {
           _pageController.animateToPage(
             index,
