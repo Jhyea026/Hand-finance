@@ -123,9 +123,7 @@ class Login extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 GestureDetector(
-                                    onTap: () {
-                                      print("clicado");
-                                    },
+                                    onTap: () {},
                                     child:
                                         Image.asset('lib/Assets/Facebook.png')),
                                 GestureDetector(

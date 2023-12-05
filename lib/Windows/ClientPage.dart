@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:handfinance/Colors/cor.dart';
 import 'package:handfinance/Windows/Goals.dart';
+import 'package:handfinance/Windows/Perfil.dart';
 import 'package:handfinance/Windows/Planning.dart';
 import 'package:handfinance/Windows/Transactions.dart';
 import 'package:handfinance/Windows/home.dart';
@@ -40,7 +41,15 @@ class _MyClientPagePageState extends State<ClientPage> {
           children: [
             IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
             SizedBox(child: Image.asset('lib/Assets/HandFinance-Logo2.png')),
-            IconButton(onPressed: () {}, icon: Icon(Icons.person))
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) {
+                      return Perfil();
+                    }),
+                  );
+                },
+                icon: Icon(Icons.person))
           ],
         ),
       ),
