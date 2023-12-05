@@ -60,11 +60,11 @@ class _MyClientPagePageState extends State<ClientPage> {
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
+        fixedColor: Cor.Primary700,
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
-              icon: Image.asset('lib/Assets/Home.png'),
-              label: 'Início'),
+              icon: Image.asset('lib/Assets/Home.png'), label: 'Principal'),
           BottomNavigationBarItem(
             icon: Image.asset('lib/Assets/Transactions.png'),
             label: 'Transações',
