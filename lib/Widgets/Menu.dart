@@ -10,14 +10,7 @@ class Menu extends StatelessWidget {
     return Scaffold(
         body: Center(
       child: Column(
-        children: [
-          ListView(
-            children: [
-              Text('data'),
-              Text('data'),
-            ],
-          )
-        ],
+        children: [],
       ),
     ));
   }
