@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:handfinance/Colors/cor.dart';
+import 'package:handfinance/Widgets/floatbutton.dart';
 import 'package:handfinance/Windows/Goals.dart';
 import 'package:handfinance/Windows/Perfil.dart';
 import 'package:handfinance/Windows/Planning.dart';
@@ -46,7 +47,10 @@ class _MyClientPagePageState extends State<ClientPage> {
               children: [
                 PopupMenuButton<String>(
                   position: PopupMenuPosition.under,
-                  icon: Icon(Icons.menu),
+                  icon: Icon(
+                    Icons.menu,
+                    color: Cor.Primary50,
+                  ),
                   onSelected: (value) {
                     // Navegar para a tela correspondente ao item selecionado
                     navigateToScreen(context, value);
@@ -86,19 +90,17 @@ class _MyClientPagePageState extends State<ClientPage> {
                         }),
                       );
                     },
-                    icon: Icon(Icons.person))
+                    icon: Icon(
+                      Icons.person,
+                      color: Cor.Primary50,
+                    ))
               ],
             ),
           ],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.add),
-        backgroundColor: Cor.Primary700,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      ),
+      floatingActionButton: MyFloatButton(),
       body: PageView(
         controller: _pageController,
         children: [

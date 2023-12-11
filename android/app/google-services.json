@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "182459417490",
+    "project_id": "hand-finance",
+    "storage_bucket": "hand-finance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182459417490:android:2228f6c698b91e9243374b",
+        "android_client_info": {
+          "package_name": "com.example.handfinance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "182459417490-93gp18rgob3mvt5bmv4mdog8asjgeq54.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBj2PmVKgejHeJdSZGgs0c5mPjFQmcrYzw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "182459417490-93gp18rgob3mvt5bmv4mdog8asjgeq54.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "182459417490-0om0mubnrttsq4cllo785p5sagg8t9ui.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.handfinance"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
