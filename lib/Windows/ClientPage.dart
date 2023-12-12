@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, library_private_types_in_public_api, use_key_in_widget_constructors, avoid_unnecessary_containers, sort_child_properties_last, unused_field, unused_element
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:handfinance/Colors/cor.dart';
 import 'package:handfinance/Widgets/floatbutton.dart';
@@ -9,6 +10,7 @@ import 'package:handfinance/Windows/Planning.dart';
 import 'package:handfinance/Windows/Transactions.dart';
 import 'package:handfinance/Windows/home.dart';
 import 'package:handfinance/main.dart';
+import 'package:handfinance/util/authen_firebase.dart';
 
 class ClientPage extends StatefulWidget {
   @override
@@ -156,6 +158,7 @@ class _MyClientPagePageState extends State<ClientPage> {
         );
         break;
       case 'item2':
+        AuthFirebase().lougt();
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => Main()),

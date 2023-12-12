@@ -39,6 +39,11 @@ dependencies:
   flutter_svg: ^2.0.9
   app_popup_menu: ^1.0.0
   firebase_core: ^2.24.2
+  validadores: ^1.0.9
+  firebase_auth: ^4.15.2
+  cloud_firestore: ^4.13.5
+  email_validator: ^2.1.17
+  email_validator_flutter: ^1.0.0
 
 dev_dependencies:
   flutter_test:

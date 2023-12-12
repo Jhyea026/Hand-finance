@@ -5,7 +5,12 @@ import 'package:handfinance/Colors/cor.dart';
 import 'package:handfinance/Widgets/botao.dart';
 import 'package:handfinance/Widgets/bottomSheet.dart';
 import 'package:handfinance/Widgets/textField.dart';
+import 'package:handfinance/Windows/ClientPage.dart';
 import 'package:handfinance/Windows/login.dart';
+import 'package:handfinance/util/authen_firebase.dart';
+import 'package:handfinance/util/nomes_fierebase.dart';
+import 'package:validadores/ValidarEmail.dart';
+// import 'package:validadores/Validador.dart';
 
 class loginCreateAccount extends StatefulWidget {
   const loginCreateAccount({super.key});
@@ -20,6 +25,32 @@ class _loginCreateAccountState extends State<loginCreateAccount> {
   TextEditingController emailController = TextEditingController();
   TextEditingController senhaController = TextEditingController();
   TextEditingController confSenhaController = TextEditingController();
+
+  void validarDados(Map<String, String> dados, String senha) async {
+    String senhaRepeat = dados[NomesCamposFirebase.senha] ?? '';
+    if (AuthFirebase.validarForm(dados) &&
+        senha == senhaRepeat &&
+        EmailValidator.validate(dados[NomesCamposFirebase.email] ?? '')) {
+      try {
+        String auth = await AuthFirebase()
+            .creatAccount(dados[NomesCamposFirebase.email] ?? '', senha, dados);
+        mudarTela();
+      } catch (e) {
+        throw "falha ao tentar criar conta";
+      }
+    } else {
+      throw ("error");
+    }
+  }
+
+  void mudarTela() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) {
+        return ClientPage();
+      }),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,7 +120,20 @@ class _loginCreateAccountState extends State<loginCreateAccount> {
                           ),
                           Botao(
                             label: 'Concordar e continuar',
-                            onPressed: () {},
+                            onPressed: () {
+                              String nome = nomeController.text;
+                              String email = emailController.text;
+                              String senha = senhaController.text;
+                              String senharepeat = confSenhaController.text;
+
+                              Map<String, String> dados = {
+                                NomesCamposFirebase.nome: nome,
+                                NomesCamposFirebase.email: email,
+                                NomesCamposFirebase.senha: senha,
+                              };
+
+                              validarDados(dados, senharepeat);
+                            },
                             style: true,
                             largura: 300,
                           ),

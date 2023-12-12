@@ -1,15 +1,18 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:email_validator_flutter/email_validator_flutter.dart';
 import 'package:flutter/material.dart';
-
 import 'package:handfinance/Colors/cor.dart';
 import 'package:handfinance/Widgets/botao.dart';
 import 'package:handfinance/Widgets/bottomSheet.dart';
 import 'package:handfinance/Widgets/textField.dart';
 import 'package:handfinance/Windows/ClientPage.dart';
+import 'package:handfinance/Windows/emailVerify.dart';
 import 'package:handfinance/Windows/forgotPassword.dart';
-import 'package:handfinance/Windows/home.dart';
+// import 'package:handfinance/Windows/home.dart';
 import 'package:handfinance/Windows/login_creat.dart';
+import 'package:handfinance/util/authen_firebase.dart';
+import 'package:validadores/ValidarEmail.dart';
 
 class Login extends StatelessWidget {
   Login({super.key});
@@ -19,8 +22,26 @@ class Login extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
   TextEditingController senhaController = TextEditingController();
   TextEditingController confSenhaController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    void mudarTela() {
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) {
+          return ClientPage();
+        }),
+      );
+    }
+
+    void login(String email, String senha) {
+      Map<String, String> dados = {email: email, senha: senha};
+      if (AuthFirebase.validarForm(dados) &&
+          EmailValidatorFlutter().validateEmail(email)) {
+        AuthFirebase().loginAccount(email, senha);
+        mudarTela();
+      }
+    }
+
     return Scaffold(
       backgroundColor: Cor.Primary50,
       body: GestureDetector(
@@ -90,11 +111,7 @@ class Login extends StatelessWidget {
                           Botao(
                             label: 'Entrar',
                             onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(builder: (context) {
-                                  return ClientPage();
-                                }),
-                              );
+                              login(emailController.text, senhaController.text);
                             },
                             style: true,
                           ),
