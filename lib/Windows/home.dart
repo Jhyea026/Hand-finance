@@ -37,7 +37,7 @@ class Home extends StatelessWidget {
                                             Color.fromARGB(255, 105, 105, 105)),
                                   ),
                                   Text(
-                                    'RS 0,00',
+                                    'R\$ 0,00',
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,
@@ -72,7 +72,7 @@ class Home extends StatelessWidget {
                                                     255, 105, 105, 105)),
                                           ),
                                           Text(
-                                            'RS 0,00',
+                                            'R\$ 0,00',
                                             style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w500,
@@ -100,7 +100,7 @@ class Home extends StatelessWidget {
                                                     255, 105, 105, 105)),
                                           ),
                                           Text(
-                                            'RS 0,00',
+                                            'R\$ 0,00',
                                             style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w500,
@@ -135,16 +135,15 @@ class Home extends StatelessWidget {
                                   children: [
                                     Text(
                                       'Opa! Você ainda não possui cartões de crédito cadastrados.',
-                                      textAlign: TextAlign.center ,
+                                      textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w400,
                                           letterSpacing: 0.25,
                                           height: 1.4,
-                                          color:
-                                              Color.fromARGB(255, 105, 105, 105)),
+                                          color: Color.fromARGB(
+                                              255, 105, 105, 105)),
                                     ),
-                                    
                                   ],
                                 ),
                               ),
@@ -153,7 +152,6 @@ class Home extends StatelessWidget {
                               ),
                               Column(
                                 children: [
-                                  
                                   Botao(
                                       label: 'Adicionar cartão',
                                       onPressed: () {})
@@ -169,90 +167,97 @@ class Home extends StatelessWidget {
                     titulo: 'Planejamento',
                     conteudo: [
                       Padding(
-                                padding: EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      'Opa! Você ainda não possui cartões de crédito cadastrados.',
-                                      textAlign: TextAlign.center ,
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                          letterSpacing: 0.25,
-                                          height: 1.4,
-                                          color:
-                                              Color.fromARGB(255, 105, 105, 105)),
-                                    ),
-                                    
-                                  ],
-                                ),
-                              ),
-                      Botao(label: 'Criar um planejamento', onPressed: (){})
+                        padding: EdgeInsets.only(
+                            top: 10, bottom: 10, left: 20, right: 20),
+                        child: Column(
+                          children: [
+                            Text(
+                              'Opa! Você ainda não possui cartões de crédito cadastrados.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: 0.25,
+                                  height: 1.4,
+                                  color: Color.fromARGB(255, 105, 105, 105)),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Botao(label: 'Criar um planejamento', onPressed: () {})
                     ],
                   ),
                   HomeCards(
                     titulo: 'Economia mensal',
                     conteudo: [
                       Container(
-                        padding: EdgeInsets.only(top: 20,left: 20, right: 20),
-                        
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-
-                                Container(
-                                  
-                                  width: 160,
-                                  height: 67,
-                                  child: Text('Você ainda não tem nenhum registro para este mês.', textAlign: TextAlign.center,style: TextStyle(fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                          letterSpacing: 0.25,
-                                          height: 1.3,
-                                          color:
-                                              Color.fromARGB(255, 105, 105, 105)),)),
-                                Container(
-                                  
-                                  width: 130,
-                                  height: 67,
-                                  child: Text('Você economizou 0.00% dos seus ganhos.',textAlign: TextAlign.center, style: TextStyle(fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                          letterSpacing: 0.15,
-                                          height: 1.3,
-                                          color:
-                                              Color.fromARGB(255, 105, 105, 105)),)),
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20, right: 20,top: 10),
-                              child: Container(
-                                
-                                child: Row(
-                                  
-                                  children: [
-                                    Image.asset('lib/Assets/Star.png'),
-                                    Container(
-                                      margin: EdgeInsets.only(left: 10),
-                                      width: 210,
-                                      
-                                      child: Text('Pense bem nas próximas despesas e reveja suas metas', style: TextStyle(fontSize: 14,
-                                                fontWeight: FontWeight.w400,
-                                                letterSpacing: 0.15,
-                                                height: 1.3,
-                                                color:
-                                                    Color.fromARGB(255, 105, 105, 105)),),
-                                    ),
-                                  ],
-                                ),
+                          padding:
+                              EdgeInsets.only(top: 20, left: 20, right: 20),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Container(
+                                      width: 160,
+                                      height: 67,
+                                      child: Text(
+                                        'Você ainda não tem nenhum registro para este mês.',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            letterSpacing: 0.25,
+                                            height: 1.3,
+                                            color: Color.fromARGB(
+                                                255, 105, 105, 105)),
+                                      )),
+                                  Container(
+                                      width: 130,
+                                      height: 67,
+                                      child: Text(
+                                        'Você economizou 0.00% dos seus ganhos.',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            letterSpacing: 0.15,
+                                            height: 1.3,
+                                            color: Color.fromARGB(
+                                                255, 105, 105, 105)),
+                                      )),
+                                ],
                               ),
-                            )
-                          ],
-                        )
-                      )
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 20, right: 20, top: 10),
+                                child: Container(
+                                  child: Row(
+                                    children: [
+                                      Image.asset('lib/Assets/Star.png'),
+                                      Container(
+                                        margin: EdgeInsets.only(left: 10),
+                                        width: 210,
+                                        child: Text(
+                                          'Pense bem nas próximas despesas e reveja suas metas',
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                              letterSpacing: 0.15,
+                                              height: 1.3,
+                                              color: Color.fromARGB(
+                                                  255, 105, 105, 105)),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ))
                     ],
                   ),
-                  
                 ],
               ),
             ),

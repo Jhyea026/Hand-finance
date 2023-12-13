@@ -6,9 +6,9 @@ import 'package:handfinance/Colors/cor.dart';
 import 'package:handfinance/Widgets/floatbutton.dart';
 import 'package:handfinance/Windows/Goals.dart';
 import 'package:handfinance/Windows/Perfil.dart';
-import 'package:handfinance/Windows/Planning.dart';
-import 'package:handfinance/Windows/Transactions.dart';
+import 'package:handfinance/Windows/Profit.dart';
 import 'package:handfinance/Windows/home.dart';
+import 'package:handfinance/Windows/loss.dart';
 import 'package:handfinance/main.dart';
 import 'package:handfinance/util/authen_firebase.dart';
 
@@ -40,7 +40,7 @@ class _MyClientPagePageState extends State<ClientPage> {
       appBar: AppBar(
         actions: [],
         automaticallyImplyLeading: false,
-        toolbarHeight: 82,
+        toolbarHeight: 100,
         backgroundColor: Cor.Primary400,
         title: Column(
           children: [
@@ -119,21 +119,25 @@ class _MyClientPagePageState extends State<ClientPage> {
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
-        fixedColor: Cor.Primary700,
+        selectedItemColor: Cor.Primary300,
+        unselectedItemColor: Cor.Primary700,
+        selectedIconTheme: IconThemeData(color: Cor.Primary300),
+        unselectedIconTheme: IconThemeData(color: Cor.Primary700),
+        showUnselectedLabels: true,
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(
-              icon: Image.asset('lib/Assets/Home.png'), label: 'Principal'),
+              icon: Icon(Icons.home_outlined), label: 'Principal'),
           BottomNavigationBarItem(
-            icon: Image.asset('lib/Assets/Transactions.png'),
-            label: 'Transações',
+            icon: Icon(Icons.trending_up_outlined),
+            label: 'Receitas',
           ),
           BottomNavigationBarItem(
-            icon: Image.asset('lib/Assets/Planning.png'),
-            label: 'Planejamento',
+            icon: Icon(Icons.trending_down_outlined),
+            label: 'Despesas',
           ),
           BottomNavigationBarItem(
-            icon: Image.asset('lib/Assets/Goals.png'),
+            icon: Icon(Icons.check),
             label: 'Objetivo',
           ),
           // Adicione mais BottomNavigationBarItems conforme necessário

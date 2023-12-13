@@ -35,8 +35,11 @@ class Login extends StatelessWidget {
 
     void login(String email, String senha) {
       Map<String, String> dados = {email: email, senha: senha};
-      if (AuthFirebase.validarForm(dados) &&
-          EmailValidatorFlutter().validateEmail(email)) {
+      print(EmailValidatorFlutter().validateEmail(email));
+      if (AuthFirebase.validarForm(dados)) {
+        print("Authe");
+        // // EmailValidatorFlutter().validateEmail(email)
+
         AuthFirebase().loginAccount(email, senha);
         mudarTela();
       }
@@ -104,6 +107,7 @@ class Login extends StatelessWidget {
                             labText: 'Senha',
                             controller: senhaController,
                             password: true,
+                            isVisible: true,
                           ),
                           SizedBox(
                             height: alturaSizebox,

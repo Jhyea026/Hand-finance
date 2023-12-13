@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, library_private_types_in_public_api, prefer_const_constructors_in_immutables, unnecessary_new
 
+import 'dart:ui';
+
 import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:handfinance/Colors/cor.dart';
@@ -18,6 +20,7 @@ class _MyFloatButtonState extends State<MyFloatButton>
     with SingleTickerProviderStateMixin {
   late Animation<double> _animation;
   late AnimationController _animationController;
+  bool isOpened = true;
 
   @override
   void initState() {
@@ -29,7 +32,6 @@ class _MyFloatButtonState extends State<MyFloatButton>
     final curvedAnimation =
         CurvedAnimation(curve: Curves.easeInOut, parent: _animationController);
     _animation = Tween<double>(begin: 0, end: 1).animate(curvedAnimation);
-
     super.initState();
   }
 
@@ -51,7 +53,7 @@ class _MyFloatButtonState extends State<MyFloatButton>
         ),
         // Floating action menu item
         Bubble(
-          title: "Despezas",
+          title: "Despesas",
           iconColor: Colors.white,
           bubbleColor: Cor.Primary300,
           icon: Icons.trending_down_outlined,
@@ -81,15 +83,20 @@ class _MyFloatButtonState extends State<MyFloatButton>
       animation: _animation,
 
       // On pressed change animation state
-      onPress: () => _animationController.isCompleted
-          ? _animationController.reverse()
-          : _animationController.forward(),
+      onPress: () {
+        _animationController.isCompleted
+            ? _animationController.reverse()
+            : _animationController.forward();
+        setState(() {
+          isOpened = !isOpened;
+        });
+      },
 
       // Floating Action button Icon color
       iconColor: Cor.Primary50,
 
       // Flaoting Action button Icon
-      iconData: Icons.add,
+      iconData: isOpened ? Icons.add : Icons.close_outlined,
       backGroundColor: Cor.Primary700,
     );
   }

@@ -106,6 +106,7 @@ class _loginCreateAccountState extends State<loginCreateAccount> {
                             labText: 'Senha',
                             controller: senhaController,
                             password: true,
+                            isVisible: true,
                           ),
                           SizedBox(
                             height: alturaSizebox,
@@ -114,6 +115,7 @@ class _loginCreateAccountState extends State<loginCreateAccount> {
                             labText: 'Confirme a senha',
                             controller: confSenhaController,
                             password: true,
+                            isVisible: true,
                           ),
                           SizedBox(
                             height: alturaSizebox,

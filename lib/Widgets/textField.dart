@@ -6,13 +6,15 @@ import 'package:handfinance/Colors/cor.dart';
 class myTextField extends StatefulWidget {
   String labText;
   bool password;
+  bool isVisible;
   TextEditingController controller = TextEditingController();
 
   myTextField(
       {super.key,
       required this.labText,
       required this.controller,
-      this.password = false});
+      this.password = false,
+      this.isVisible = false});
 
   @override
   State<myTextField> createState() => _myTextFieldState();
@@ -21,7 +23,6 @@ class myTextField extends StatefulWidget {
 class _myTextFieldState extends State<myTextField> {
   FocusNode _focusNode = FocusNode();
   bool _isFocused = false;
-  bool _isVisible = false;
 
   @override
   void initState() {
@@ -42,14 +43,14 @@ class _myTextFieldState extends State<myTextField> {
 
   void visibility() {
     setState(() {
-      _isVisible = !_isVisible;
+      widget.isVisible = !widget.isVisible;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-        obscureText: _isVisible,
+        obscureText: widget.isVisible,
         focusNode: _focusNode,
         controller: widget.controller,
         decoration: InputDecoration(
@@ -58,7 +59,7 @@ class _myTextFieldState extends State<myTextField> {
                   padding: const EdgeInsetsDirectional.only(end: 12.0),
                   child: IconButton(
                     onPressed: visibility,
-                    icon: _isVisible
+                    icon: widget.isVisible
                         ? Icon(Icons.visibility)
                         : Icon(Icons.visibility_off),
                     color: _isFocused ? Cor.Primary400 : null,
