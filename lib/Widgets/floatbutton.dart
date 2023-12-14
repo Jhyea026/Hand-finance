@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:handfinance/Colors/cor.dart';
+import 'package:handfinance/Windows/addProfit.dart';
 // import 'package:handfinance/Windows/home.dart';
 
 class MyFloatButton extends StatefulWidget {
@@ -59,7 +60,13 @@ class _MyFloatButtonState extends State<MyFloatButton>
           icon: Icons.trending_down_outlined,
           titleStyle: TextStyle(fontSize: 16, color: Colors.white),
           onPress: () {
-            _animationController.reverse();
+            Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (BuildContext context) => addProfit(
+                          option: 'Despesas',
+                        )));
+            _animationController.forward();
           },
         ),
         //Floating action menu item
@@ -70,11 +77,13 @@ class _MyFloatButtonState extends State<MyFloatButton>
           icon: Icons.trending_up_outlined,
           titleStyle: TextStyle(fontSize: 16, color: Colors.white),
           onPress: () {
-            // Navigator.push(
-            //     context,
-            //     new MaterialPageRoute(
-            //         builder: (BuildContext context) => Home()));
-            _animationController.reverse();
+            Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (BuildContext context) => addProfit(
+                          option: 'Receitas',
+                        )));
+            _animationController.forward();
           },
         ),
       ],

@@ -50,23 +50,35 @@ class _TransactionsState extends State<Transactions> {
                       padding: EdgeInsets.only(top: 60),
                       child: ListView(
                         children: [
-                          HomeCards(titulo: 'Receita', conteudo: []),
-                          HomeCards(titulo: 'Receita', conteudo: []),
-                          HomeCards(titulo: 'Receita', conteudo: []),
-                          HomeCards(titulo: 'Receita', conteudo: []),
-                          HomeCards(titulo: 'Receita', conteudo: []),
-                          HomeCards(titulo: 'Receita', conteudo: []),
-                          HomeCards(titulo: 'Receita', conteudo: []),
-                          HomeCards(titulo: 'Receita', conteudo: []),
-                          HomeCards(titulo: 'Receita', conteudo: []),
-                          HomeCards(titulo: 'Receita', conteudo: []),
-                          HomeCards(titulo: 'Receita', conteudo: []),
-                          HomeCards(titulo: 'Receita', conteudo: []),
-                          HomeCards(titulo: 'Receita', conteudo: []),
-                          HomeCards(titulo: 'Receita', conteudo: []),
-                          HomeCards(titulo: 'Receita', conteudo: []),
-                          HomeCards(titulo: 'Receita', conteudo: []),
-                          HomeCards(titulo: 'Receita', conteudo: []),
+                          HomeCards(titulo: 'Receita', conteudo: [
+                            Column(
+                              children: [
+                                SizedBox(height: 10),
+                                Text('Descrição',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: Color.fromARGB(
+                                            255, 105, 105, 105))),
+                                SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset('lib/Assets/Win.png'),
+                                    SizedBox(width: 2),
+                                    Text(
+                                      'R\$ 0,00',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color.fromARGB(
+                                              255, 105, 105, 105)),
+                                    )
+                                  ],
+                                )
+                              ],
+                            )
+                          ]),
                           SizedBox(
                             height: 20,
                           )
@@ -82,7 +94,7 @@ class _TransactionsState extends State<Transactions> {
                   child: Row(
                     children: [
                       SizedBox(
-                        width: 130,
+                        width: 30,
                       ),
                       Icon(
                         Icons.attach_money,
@@ -97,9 +109,26 @@ class _TransactionsState extends State<Transactions> {
                             style: TextStyle(color: Cor.Primary50),
                           ),
                           Text("R\$ 0,00",
-                              style: TextStyle(color: Cor.Primary50))
+                              style: TextStyle(color: Cor.Primary50)),
                         ],
-                      )
+                      ),
+                      SizedBox(width: 70),
+                      Icon(
+                        Icons.attach_money,
+                        size: 32,
+                        color: Cor.Primary50,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Total de receitas',
+                            style: TextStyle(color: Cor.Primary50),
+                          ),
+                          Text("R\$ 0,00",
+                              style: TextStyle(color: Cor.Primary50)),
+                        ],
+                      ),
                     ],
                   ),
                 ),

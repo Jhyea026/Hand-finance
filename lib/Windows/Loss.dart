@@ -52,23 +52,35 @@ class _PlanningState extends State<Planning> {
                     padding: EdgeInsets.only(top: 60),
                     child: ListView(
                       children: [
-                        HomeCards(titulo: 'Despesas', conteudo: []),
-                        HomeCards(titulo: 'Despesas', conteudo: []),
-                        HomeCards(titulo: 'Despesas', conteudo: []),
-                        HomeCards(titulo: 'Despesas', conteudo: []),
-                        HomeCards(titulo: 'Despesas', conteudo: []),
-                        HomeCards(titulo: 'Despesas', conteudo: []),
-                        HomeCards(titulo: 'Despesas', conteudo: []),
-                        HomeCards(titulo: 'Despesas', conteudo: []),
-                        HomeCards(titulo: 'Despesas', conteudo: []),
-                        HomeCards(titulo: 'Despesas', conteudo: []),
-                        HomeCards(titulo: 'Despesas', conteudo: []),
-                        HomeCards(titulo: 'Despesas', conteudo: []),
-                        HomeCards(titulo: 'Despesas', conteudo: []),
-                        HomeCards(titulo: 'Despesas', conteudo: []),
-                        HomeCards(titulo: 'Despesas', conteudo: []),
-                        HomeCards(titulo: 'Despesas', conteudo: []),
-                        HomeCards(titulo: 'Despesas', conteudo: []),
+                        HomeCards(titulo: 'Despesas', conteudo: [
+                          Column(
+                            children: [
+                              SizedBox(height: 10),
+                              Text('Descrição',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color:
+                                          Color.fromARGB(255, 105, 105, 105))),
+                              SizedBox(height: 10),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset('lib/Assets/Loss.png'),
+                                  SizedBox(width: 2),
+                                  Text(
+                                    'R\$ 0,00',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color:
+                                            Color.fromARGB(255, 105, 105, 105)),
+                                  )
+                                ],
+                              )
+                            ],
+                          )
+                        ]),
                         SizedBox(
                           height: 20,
                         )
@@ -84,7 +96,7 @@ class _PlanningState extends State<Planning> {
                 child: Row(
                   children: [
                     SizedBox(
-                      width: 130,
+                      width: 30,
                     ),
                     Icon(
                       Icons.attach_money,
@@ -100,7 +112,24 @@ class _PlanningState extends State<Planning> {
                         ),
                         Text('R\$ 0,00', style: TextStyle(color: Cor.Primary50))
                       ],
-                    )
+                    ),
+                    SizedBox(width: 70),
+                    Icon(
+                      Icons.attach_money,
+                      size: 32,
+                      color: Cor.Primary50,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Total de despesas',
+                          style: TextStyle(color: Cor.Primary50),
+                        ),
+                        Text("R\$ 0,00",
+                            style: TextStyle(color: Cor.Primary50)),
+                      ],
+                    ),
                   ],
                 ),
               ),
