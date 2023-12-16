@@ -5,7 +5,7 @@ import 'dart:ui';
 import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:handfinance/Colors/cor.dart';
-import 'package:handfinance/Windows/addProfit.dart';
+import 'package:handfinance/Screens/addProfit.dart';
 // import 'package:handfinance/Windows/home.dart';
 
 class MyFloatButton extends StatefulWidget {

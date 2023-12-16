@@ -1,21 +1,56 @@
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:handfinance/util/nomes_fierebase.dart';
+// import 'package:handfinance/util/nomes_fierebase.dart';
 
 // Criando conta com email e senha
 class AuthFirebase {
+  User? _user;
   Future<String> creatAccount(
       String email, String senha, Map<String, String> dadosPessoais) async {
     try {
-      await FirebaseAuth.instance
+      //crendecial
+      UserCredential userUpdate = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: senha);
-      User? user = FirebaseAuth.instance.currentUser;
-      dadosPessoais.remove(NomesCamposFirebase.email);
+      //Adciona o nome do usuário no DisplayName
+      await userUpdate.user!
+          .updateDisplayName(dadosPessoais[NomesCamposFirebase.nome]);
+      //criando coleção com campo Saldo recbendo 0,0
 
-      await FirebaseFirestore.instance
-          .collection(NomesColecaoFirebase.colecaoRaiz)
-          .doc(user?.uid)
-          .set(dadosPessoais);
+      DocumentReference documentRefer =
+          FirebaseFirestore.instance.collection('Conta').doc(_user?.uid);
+
+      documentRefer.set({
+        'saldoTotal': 0,
+      });
+
+      documentRefer.collection('Receitas').add({
+        'receitasTotal': 0,
+        'receitasDescrição': '',
+      });
+
+      documentRefer.collection('Despesas').add({
+        'despesasTotal': 0,
+        'despesasDescrição': '',
+      });
+
+      // FirebaseFirestore.instance
+      //     .collection('Conta')
+      //     .doc(_user?.uid)
+      //     .set({'saldoTotal': 0});
+
+      // documentRefer
+      //     .collection('Receitas')
+      //     .doc()
+      //     .set({'receitasTotal': 0, 'receitasDescrição': ''});
+
+      // documentRefer
+      //     .collection('Despesas')
+      //     .doc()
+      //     .set({'despesasTotal': 0, 'despesasDescrição': ''});
+
+      // await _user?.updateDisplayName(dadosPessoais[NomesCamposFirebase.nome]);
       return 'OK';
     } catch (e) {
       throw "Erro ao tentar criar conta no Firebase Auth";
@@ -23,8 +58,8 @@ class AuthFirebase {
   }
 
   static bool validarForm(Map<String, String> dados) {
-    return dados.values.every((element) =>
-        element != null && element.toString().isNotEmpty && element != "null");
+    return dados.values
+        .every((element) => element.toString().isNotEmpty && element != "null");
   }
 
   Future<String> loginAccount(String email, String senha) async {
@@ -39,5 +74,13 @@ class AuthFirebase {
 
   Future<void> lougt() async {
     await FirebaseAuth.instance.signOut();
+  }
+
+  Future<void> deletAccount() async {
+    try {
+      await FirebaseAuth.instance.currentUser?.delete();
+    } catch (e) {
+      throw 'Erro ao tenta apagar conta $e';
+    }
   }
 }

@@ -1,14 +1,15 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, library_private_types_in_public_api, use_key_in_widget_constructors, avoid_unnecessary_containers, sort_child_properties_last, unused_field, unused_element
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, library_private_types_in_public_api, use_key_in_widget_constructors, avoid_unnecessary_containers, sort_child_properties_last, unused_field, unused_element, unused_import
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:handfinance/Colors/cor.dart';
+import 'package:handfinance/Screens/Loss.dart';
 import 'package:handfinance/Widgets/floatbutton.dart';
-import 'package:handfinance/Windows/Goals.dart';
-import 'package:handfinance/Windows/Perfil.dart';
-import 'package:handfinance/Windows/Profit.dart';
-import 'package:handfinance/Windows/home.dart';
-import 'package:handfinance/Windows/loss.dart';
+import 'package:handfinance/Screens/Goals.dart';
+import 'package:handfinance/Screens/Perfil.dart';
+import 'package:handfinance/Screens/Profit.dart';
+import 'package:handfinance/Screens/home.dart';
+
 import 'package:handfinance/main.dart';
 import 'package:handfinance/util/authen_firebase.dart';
 
@@ -156,12 +157,8 @@ class _MyClientPagePageState extends State<ClientPage> {
   void navigateToScreen(BuildContext context, String value) {
     switch (value) {
       case 'item1':
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Perfil()),
-        );
         break;
-      case 'item2':
+      case 'item5':
         AuthFirebase().lougt();
         Navigator.push(
           context,

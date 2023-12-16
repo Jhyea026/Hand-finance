@@ -5,7 +5,7 @@ import 'package:handfinance/Colors/cor.dart';
 import 'package:handfinance/Widgets/botao.dart';
 import 'package:handfinance/Widgets/bottomSheet.dart';
 import 'package:handfinance/Widgets/textField.dart';
-import 'package:handfinance/Windows/emailVerify.dart';
+import 'package:handfinance/Screens/emailVerify.dart';
 
 class forgotPassword extends StatelessWidget {
   const forgotPassword({super.key});

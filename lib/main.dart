@@ -2,7 +2,7 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:handfinance/Windows/welcome.dart';
+import 'package:handfinance/Screens/welcome.dart';
 import 'package:handfinance/firebase_options.dart';
 
 void main() async {

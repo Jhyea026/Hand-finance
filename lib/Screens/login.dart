@@ -6,11 +6,11 @@ import 'package:handfinance/Colors/cor.dart';
 import 'package:handfinance/Widgets/botao.dart';
 import 'package:handfinance/Widgets/bottomSheet.dart';
 import 'package:handfinance/Widgets/textField.dart';
-import 'package:handfinance/Windows/ClientPage.dart';
-import 'package:handfinance/Windows/emailVerify.dart';
-import 'package:handfinance/Windows/forgotPassword.dart';
+import 'package:handfinance/Screens/ClientPage.dart';
+import 'package:handfinance/Screens/emailVerify.dart';
+import 'package:handfinance/Screens/forgotPassword.dart';
 // import 'package:handfinance/Windows/home.dart';
-import 'package:handfinance/Windows/login_creat.dart';
+import 'package:handfinance/Screens/login_creat.dart';
 import 'package:handfinance/util/authen_firebase.dart';
 import 'package:validadores/ValidarEmail.dart';
 
@@ -33,14 +33,13 @@ class Login extends StatelessWidget {
       );
     }
 
-    void login(String email, String senha) {
+    void login(String email, String senha) async {
+      String validarLogin = await AuthFirebase().loginAccount(email, senha);
       Map<String, String> dados = {email: email, senha: senha};
-      print(EmailValidatorFlutter().validateEmail(email));
-      if (AuthFirebase.validarForm(dados)) {
+
+      if (AuthFirebase.validarForm(dados) && validarLogin == 'OK') {
         print("Authe");
         // // EmailValidatorFlutter().validateEmail(email)
-
-        AuthFirebase().loginAccount(email, senha);
         mudarTela();
       }
     }
@@ -145,12 +144,14 @@ class Login extends StatelessWidget {
                               children: [
                                 GestureDetector(
                                     onTap: () {
-                                      print("clicado");
+                                      print("Facebook");
                                     },
                                     child:
                                         Image.asset('lib/Assets/Facebook.png')),
                                 GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      print("Google");
+                                    },
                                     child: Image.asset('lib/Assets/Google.png'))
                               ],
                             ),

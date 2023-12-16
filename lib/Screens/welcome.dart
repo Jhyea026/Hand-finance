@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:handfinance/Colors/cor.dart';
 import 'package:handfinance/Widgets/botao.dart';
 import 'package:handfinance/Widgets/bottomSheet.dart';
-import 'package:handfinance/Windows/login.dart';
-import 'package:handfinance/Windows/login_creat.dart';
+import 'package:handfinance/Screens/login.dart';
+import 'package:handfinance/Screens/login_creat.dart';
 
 // ignore: camel_case_types
 class Welcome extends StatelessWidget {

@@ -1,12 +1,48 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace
 
+import 'dart:ffi';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:handfinance/Colors/cor.dart';
 import 'package:handfinance/Widgets/botao.dart';
 import 'package:handfinance/Widgets/card.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class Home extends StatefulWidget {
+  Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  User? user = FirebaseAuth.instance.currentUser!;
+  dynamic saldo;
+
+  @override
+  void initState() {
+    super.initState();
+    dataBase();
+  }
+
+  void dataBase() async {
+    try {
+      DocumentSnapshot lerDados = await FirebaseFirestore.instance
+          .collection('Conta')
+          .doc(user?.uid)
+          .get();
+
+      if (lerDados.exists) {
+        saldo = lerDados['saldoTotal'];
+        print('object');
+      }
+    } catch (e) {
+      print('Entrando no catch');
+
+      throw 'Erro ao tentar acessar Saldo $e';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +73,7 @@ class Home extends StatelessWidget {
                                             Color.fromARGB(255, 105, 105, 105)),
                                   ),
                                   Text(
-                                    'R\$ 0,00',
+                                    'R\$ $saldo',
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,

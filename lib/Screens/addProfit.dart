@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, camel_case_types, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, avoid_print
 
 import 'dart:ffi';
 import 'dart:ui';
@@ -47,11 +47,11 @@ class _addProfitState extends State<addProfit> {
                 children: [
                   Icon(
                     Icons.arrow_back,
-                    size: 30,
+                    size: 26,
                   ),
                   Text(
                     'Voltar',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 18),
                   )
                 ],
               ),
@@ -83,7 +83,7 @@ class _addProfitState extends State<addProfit> {
                   color: option == 'Receitas'
                       ? Cor.Primary700
                       : Color.fromARGB(255, 163, 74, 70),
-                  fontSize: 22,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold),
               value: option,
               onChanged: (String? newValue) {

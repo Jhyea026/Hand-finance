@@ -3,11 +3,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:handfinance/Colors/cor.dart';
+import 'package:handfinance/Screens/welcome.dart';
 import 'package:handfinance/Widgets/botaoPerfil.dart';
+import 'package:handfinance/util/authen_firebase.dart';
 
 class Perfil extends StatelessWidget {
   Perfil({super.key});
-  User? userEmail = FirebaseAuth.instance.currentUser;
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -59,10 +61,10 @@ class Perfil extends StatelessWidget {
                   height: 20,
                 ),
                 Text(
-                  'Usuário',
+                  '${user!.displayName}',
                   style: TextStyle(fontSize: 22, color: Cor.Primary50),
                 ),
-                Text('Email',
+                Text('${user!.email}',
                     style: TextStyle(fontSize: 14, color: Cor.Primary50))
               ],
             ),
@@ -72,18 +74,28 @@ class Perfil extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 BtnPerfil(
+                  acao: () {},
                   titulo: 'Cadastro',
                   icon: Icons.person_outline,
                 ),
                 BtnPerfil(
+                  acao: () {},
                   titulo: 'Minhas economias',
                   icon: Icons.attach_money_outlined,
                 ),
                 BtnPerfil(
+                  acao: () {},
                   titulo: 'Convide um amigo',
                   icon: Icons.link,
                 ),
                 BtnPerfil(
+                  acao: () {
+                    AuthFirebase().deletAccount();
+                    print('Usuario deletado');
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => Welcome()),
+                        (route) => false);
+                  },
                   titulo: 'Deletar conta',
                   icon: Icons.close,
                   colorRed: true,
