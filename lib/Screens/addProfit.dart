@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:handfinance/Colors/cor.dart';
 import 'package:handfinance/Widgets/bottomSheet.dart';
 import 'package:handfinance/Widgets/textField.dart';
+import 'package:handfinance/util/DB_Firebase.dart';
 
 class addProfit extends StatefulWidget {
   final String option;
@@ -28,6 +29,14 @@ class _addProfitState extends State<addProfit> {
     setState(() {
       option = widget.option;
     });
+  }
+
+  void addDB(String colecao, double valor, String descricao) async {
+    try {
+      DB_Firebase().addDB(colecao, descricao, valor);
+    } catch (e) {
+      throw 'Error';
+    }
   }
 
   @override
@@ -107,6 +116,7 @@ class _addProfitState extends State<addProfit> {
             ),
             option == 'Receitas'
                 ? Container(
+                    // Renderiza Receitas
                     padding: EdgeInsets.symmetric(horizontal: 40),
                     child: Column(
                       children: [
@@ -163,12 +173,18 @@ class _addProfitState extends State<addProfit> {
                                 iconColor:
                                     MaterialStatePropertyAll(Cor.Primary50)),
                             iconSize: 30,
-                            onPressed: () {},
+                            onPressed: () {
+                              addDB('Receitas', double.parse(valor.text),
+                                  descriptionController.text);
+                              valor.text = '';
+                              descriptionController.text = '';
+                            },
                             icon: Icon(Icons.check_outlined))
                       ],
                     ),
                   )
                 : Container(
+                    // Renderiza despesas
                     padding: EdgeInsets.symmetric(horizontal: 40),
                     child: Column(
                       children: [
@@ -226,7 +242,12 @@ class _addProfitState extends State<addProfit> {
                                 iconColor:
                                     MaterialStatePropertyAll(Cor.Primary50)),
                             iconSize: 30,
-                            onPressed: () {},
+                            onPressed: () {
+                              addDB('Despesas', double.parse(valor.text),
+                                  descriptionController.text);
+                              valor.text = '';
+                              descriptionController.text = '';
+                            },
                             icon: Icon(Icons.check_outlined))
                       ],
                     ),

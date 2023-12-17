@@ -6,7 +6,6 @@ import 'package:handfinance/util/nomes_fierebase.dart';
 
 // Criando conta com email e senha
 class AuthFirebase {
-  User? _user;
   Future<String> creatAccount(
       String email, String senha, Map<String, String> dadosPessoais) async {
     try {
@@ -16,23 +15,15 @@ class AuthFirebase {
       //Adciona o nome do usuário no DisplayName
       await userUpdate.user!
           .updateDisplayName(dadosPessoais[NomesCamposFirebase.nome]);
-      //criando coleção com campo Saldo recbendo 0,0
+
+      User? user = FirebaseAuth.instance.currentUser;
+      //criando coleção com campo Saldo recebendo 0,0
 
       DocumentReference documentRefer =
-          FirebaseFirestore.instance.collection('Conta').doc(_user?.uid);
+          FirebaseFirestore.instance.collection('Conta').doc(user?.uid);
 
       documentRefer.set({
         'saldoTotal': 0,
-      });
-
-      documentRefer.collection('Receitas').add({
-        'receitasTotal': 0,
-        'receitasDescrição': '',
-      });
-
-      documentRefer.collection('Despesas').add({
-        'despesasTotal': 0,
-        'despesasDescrição': '',
       });
 
       // FirebaseFirestore.instance
