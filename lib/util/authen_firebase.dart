@@ -26,22 +26,6 @@ class AuthFirebase {
         'saldoTotal': 0,
       });
 
-      // FirebaseFirestore.instance
-      //     .collection('Conta')
-      //     .doc(_user?.uid)
-      //     .set({'saldoTotal': 0});
-
-      // documentRefer
-      //     .collection('Receitas')
-      //     .doc()
-      //     .set({'receitasTotal': 0, 'receitasDescrição': ''});
-
-      // documentRefer
-      //     .collection('Despesas')
-      //     .doc()
-      //     .set({'despesasTotal': 0, 'despesasDescrição': ''});
-
-      // await _user?.updateDisplayName(dadosPessoais[NomesCamposFirebase.nome]);
       return 'OK';
     } catch (e) {
       throw "Erro ao tentar criar conta no Firebase Auth";

@@ -138,7 +138,8 @@ class _addProfitState extends State<addProfit> {
                                   width: 200,
                                   child: TextField(
                                     controller: valor,
-                                    keyboardType: TextInputType.number,
+                                    keyboardType:
+                                        TextInputType.numberWithOptions(),
                                     style: TextStyle(
                                         fontSize: 36,
                                         color:

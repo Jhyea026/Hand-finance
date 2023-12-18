@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, camel_case_types, unused_local_variable, unused_catch_clause
+// ignore_for_file: file_names, camel_case_types,
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,7 +19,47 @@ class DB_Firebase {
       });
       return true;
     } on Exception catch (e) {
-      return false;
+      throw 'Erro ao receber dados da coleção "$colecao": $e';
+    }
+  }
+
+  Future<QuerySnapshot<Map<String, dynamic>>?> receberDados(
+      String userId, String colecao) async {
+    try {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      return await firestore
+          .collection('Conta')
+          .doc(userId)
+          .collection(colecao)
+          .get();
+    } catch (e) {
+      throw 'Erro ao receber dados da coleção "$colecao": $e';
+    }
+  }
+
+  Future<double> somaValores(String colecao) async {
+    double total = 0;
+
+    QuerySnapshot<Map<String, dynamic>>? dadosColecao =
+        await DB_Firebase().receberDados(user!.uid, colecao);
+
+    try {
+      if (dadosColecao != null) {
+        dynamic teste;
+        teste = dadosColecao.docs
+            .where((doc) => doc.data().isNotEmpty)
+            .map((itens) {
+          Map<String, dynamic> item = itens.data();
+
+          total = total + item['${colecao.toLowerCase()}Valor'];
+        });
+
+        return total;
+      } else {
+        return 0;
+      }
+    } catch (e) {
+      throw "Error ao tentar acessar dados $e";
     }
   }
 }

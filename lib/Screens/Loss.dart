@@ -1,9 +1,12 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:handfinance/Colors/cor.dart';
-import 'package:handfinance/Widgets/botao.dart';
 import 'package:handfinance/Widgets/card.dart';
+import 'package:handfinance/util/DB_Firebase.dart';
+import 'package:handfinance/util/models.dart';
 
 class Planning extends StatefulWidget {
   const Planning({super.key});
@@ -13,7 +16,37 @@ class Planning extends StatefulWidget {
 }
 
 class _PlanningState extends State<Planning> {
-  bool emptyScreen = false;
+  List<DB_Models> models = [];
+  User? user = FirebaseAuth.instance.currentUser;
+
+  Future<void> buscarDados(String colecao) async {
+    try {
+      QuerySnapshot<Map<String, dynamic>>? dadosColecao =
+          await DB_Firebase().receberDados(user!.uid, colecao);
+      setState(() {
+        models = dadosColecao!.docs
+            .where((doc) => doc.data().isNotEmpty)
+            .map((itens) {
+          Map<String, dynamic> item = itens.data();
+
+          return DB_Models(
+              descricao: item['${colecao.toLowerCase()}Descrição'],
+              valor: item['${colecao.toLowerCase()}Valor']
+                  .toStringAsFixed(2)
+                  .replaceAll('.', ','));
+        }).toList();
+      });
+    } catch (e) {
+      throw "Error ao tentar acessar dados $e";
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    buscarDados('Despesas');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +54,7 @@ class _PlanningState extends State<Planning> {
       body: Expanded(
         child: Stack(
           children: [
-            emptyScreen
+            models.isEmpty
                 ? Center(
                     child: Container(
                       child: Column(
@@ -51,42 +84,44 @@ class _PlanningState extends State<Planning> {
                 : Padding(
                     padding: EdgeInsets.only(top: 60),
                     child: ListView(
-                      children: [
-                        HomeCards(titulo: 'Despesas', conteudo: [
-                          Column(
-                            children: [
-                              SizedBox(height: 10),
-                              Text('Descrição',
+                      children: models.map((data) {
+                        return HomeCards(
+                          titulo: 'Receita',
+                          conteudo: [
+                            Column(
+                              children: [
+                                SizedBox(height: 10),
+                                Text(
+                                  data.descricao,
                                   style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      color:
-                                          Color.fromARGB(255, 105, 105, 105))),
-                              SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset('lib/Assets/Loss.png'),
-                                  SizedBox(width: 2),
-                                  Text(
-                                    'R\$ 0,00',
-                                    style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: Color.fromARGB(255, 105, 105, 105),
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset('lib/Assets/Loss.png'),
+                                    SizedBox(width: 2),
+                                    Text(
+                                      'R\$ ${data.valor}',
+                                      style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
                                         color:
-                                            Color.fromARGB(255, 105, 105, 105)),
-                                  )
-                                ],
-                              )
-                            ],
-                          )
-                        ]),
-                        SizedBox(
-                          height: 20,
-                        )
-                      ],
-                    ),
-                  ),
+                                            Color.fromARGB(255, 105, 105, 105),
+                                      ),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          ],
+                        );
+                      }).toList(),
+                    )),
             Positioned(
               top: 0,
               child: Container(
