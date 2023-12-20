@@ -1,10 +1,17 @@
-// ignore_for_file: file_names, camel_case_types,
+// ignore_for_file: file_names, camel_case_types,, unused_local_variable
+
+import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:handfinance/util/models.dart';
 
 class DB_Firebase {
   User? user = FirebaseAuth.instance.currentUser!;
+
+  double totalReceitas = 0;
+  double totalDespesas = 0;
 
   Future<bool> addDB(String colecao, String descricao, double valor) async {
     try {
@@ -17,6 +24,7 @@ class DB_Firebase {
         "${colecao.toLowerCase()}Valor": valor,
         "${colecao.toLowerCase()}Descrição": descricao
       });
+
       return true;
     } on Exception catch (e) {
       throw 'Erro ao receber dados da coleção "$colecao": $e';
@@ -27,6 +35,7 @@ class DB_Firebase {
       String userId, String colecao) async {
     try {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
+
       return await firestore
           .collection('Conta')
           .doc(userId)
@@ -37,29 +46,58 @@ class DB_Firebase {
     }
   }
 
-  Future<double> somaValores(String colecao) async {
-    double total = 0;
-
-    QuerySnapshot<Map<String, dynamic>>? dadosColecao =
-        await DB_Firebase().receberDados(user!.uid, colecao);
+  Future<void> atualizarSaldo() async {
+    List<double> despesas = [];
+    List<double> receitas = [];
 
     try {
-      if (dadosColecao != null) {
-        dynamic teste;
-        teste = dadosColecao.docs
-            .where((doc) => doc.data().isNotEmpty)
-            .map((itens) {
-          Map<String, dynamic> item = itens.data();
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-          total = total + item['${colecao.toLowerCase()}Valor'];
-        });
+      QuerySnapshot<Map<String, dynamic>>? dadosReceitas =
+          await DB_Firebase().receberDados(user!.uid, 'Receitas');
+      QuerySnapshot<Map<String, dynamic>>? dadosDespesas =
+          await DB_Firebase().receberDados(user!.uid, 'Despesas');
+      receitas = dadosReceitas!.docs
+          .where((doc) => doc.data().isNotEmpty)
+          .map((itens) {
+        Map<String, dynamic> item = itens.data();
+        totalReceitas += item['receitasValor'];
+        return totalReceitas;
+      }).toList();
 
-        return total;
-      } else {
-        return 0;
-      }
-    } catch (e) {
-      throw "Error ao tentar acessar dados $e";
+      despesas = dadosDespesas!.docs
+          .where((doc) => doc.data().isNotEmpty)
+          .map((itens) {
+        Map<String, dynamic> item = itens.data();
+        totalDespesas += item['despesasValor'];
+        return totalDespesas;
+      }).toList();
+
+      double saldoTotal = totalReceitas - totalDespesas;
+
+      await firestore
+          .collection('Conta')
+          .doc(user!.uid)
+          .update({'saldoTotal': saldoTotal});
+    } on Exception catch (e) {
+      throw 'Error ao somar saldo total';
+    }
+  }
+
+  Future<double> buscarSaldo() async {
+    dynamic saldo;
+
+    DocumentReference lerdados =
+        FirebaseFirestore.instance.collection('Conta').doc(user?.uid);
+    DocumentSnapshot pegarDados = await lerdados.get();
+
+    if (pegarDados.exists) {
+      Map<String, dynamic> data = pegarDados.data() as Map<String, dynamic>;
+
+      saldo = data['saldoTotal'].toDouble();
+      return saldo;
+    } else {
+      return 0;
     }
   }
 }

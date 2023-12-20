@@ -32,7 +32,7 @@ class AuthFirebase {
     }
   }
 
-  static bool validarForm(Map<String, String> dados) {
+  static bool validarForm(Map<String, dynamic> dados) {
     return dados.values
         .every((element) => element.toString().isNotEmpty && element != "null");
   }

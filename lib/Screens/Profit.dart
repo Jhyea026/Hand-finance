@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:handfinance/Colors/cor.dart';
 import 'package:handfinance/Widgets/card.dart';
+import 'package:handfinance/Widgets/loading.dart';
 import 'package:handfinance/util/DB_Firebase.dart';
 import 'package:handfinance/util/models.dart';
 
@@ -21,6 +22,7 @@ class _TransactionsState extends State<Transactions> {
   List<DB_Models> models = [];
   User? user = FirebaseAuth.instance.currentUser;
   double totalReceitas = 0;
+  double saldoAtual = 0;
 
   Future<void> buscarDados(String colecao) async {
     try {
@@ -31,6 +33,7 @@ class _TransactionsState extends State<Transactions> {
             .where((doc) => doc.data().isNotEmpty)
             .map((itens) {
           Map<String, dynamic> item = itens.data();
+          totalReceitas += item['${colecao.toLowerCase()}Valor'];
 
           return DB_Models(
               descricao: item['${colecao.toLowerCase()}Descrição'],
@@ -48,12 +51,6 @@ class _TransactionsState extends State<Transactions> {
   void initState() {
     super.initState();
     buscarDados('Receitas');
-    somaValor();
-  }
-
-  void somaValor() async {
-    totalReceitas = await DB_Firebase().somaValores('Receitas');
-    // print(totalReceitas);
   }
 
   @override
@@ -151,8 +148,9 @@ class _TransactionsState extends State<Transactions> {
                           'Saldo atual',
                           style: TextStyle(color: Cor.Primary50),
                         ),
-                        Text("R\$ 0,00",
-                            style: TextStyle(color: Cor.Primary50)),
+                        Loading(screen: 'screen')
+                        // Text("R\$ 0,00",
+                        //     style: TextStyle(color: Cor.Primary50)),
                       ],
                     ),
                     SizedBox(width: 70),
@@ -168,7 +166,8 @@ class _TransactionsState extends State<Transactions> {
                           'Total de receitas',
                           style: TextStyle(color: Cor.Primary50),
                         ),
-                        Text("R\$ $totalReceitas",
+                        Text(
+                            "R\$ ${totalReceitas.toStringAsFixed(2).replaceAll('.', ',')}",
                             style: TextStyle(color: Cor.Primary50)),
                       ],
                     ),

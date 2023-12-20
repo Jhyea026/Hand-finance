@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:handfinance/Colors/cor.dart';
 import 'package:handfinance/Widgets/botao.dart';
 import 'package:handfinance/Widgets/card.dart';
+import 'package:handfinance/Widgets/loading.dart';
+import 'package:handfinance/util/DB_Firebase.dart';
+import 'package:handfinance/util/models.dart';
 import 'package:handfinance/util/nomes_fierebase.dart';
 
 class Home extends StatefulWidget {
@@ -20,52 +23,41 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   User? user = FirebaseAuth.instance.currentUser!;
   dynamic saldo;
+  List<DB_Models> models = [];
+  double totalDespesas = 0;
+  late bool colecaoSelect;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    dataBase();
   }
 
-  // void dataBase() async {
-  //   try {
-  //     DocumentReference lerdados =
-  //         FirebaseFirestore.instance.collection('Conta').doc(user?.uid);
+  @override
+  void initState() {
+    super.initState();
+    buscarDados('Despesas');
+  }
 
-  //     DocumentSnapshot pegarDados = await lerdados.get();
+  Future<void> buscarDados(String colecao) async {
+    try {
+      QuerySnapshot<Map<String, dynamic>>? dadosColecao =
+          await DB_Firebase().receberDados(user!.uid, colecao);
+      setState(() {
+        models = dadosColecao!.docs
+            .where((doc) => doc.data().isNotEmpty)
+            .map((itens) {
+          Map<String, dynamic> item = itens.data();
+          totalDespesas += item['${colecao.toLowerCase()}Valor'];
 
-  //     if (pegarDados.exists) {
-  //       Map<String, dynamic> saldoTotal =
-  //           pegarDados.data() as Map<String, dynamic>;
-  //       return saldoTotal['saldoTotal'];
-  //     }
-  //   } catch (e) {
-  //     print('Entrando no catch');
-
-  //     throw 'Erro ao tentar acessar Saldo $e';
-  //   }
-  // }
-  Future<String> dataBase() async {
-    DocumentReference lerdados =
-        FirebaseFirestore.instance.collection('Conta').doc(user?.uid);
-    DocumentSnapshot pegarDados = await lerdados.get();
-
-    if (pegarDados.exists) {
-      Map<String, dynamic> data = pegarDados.data() as Map<String, dynamic>;
-
-      saldo = data['saldoTotal'].toDouble();
-      if (saldo != null) {
-        // Formata o saldo com duas casas decimais separadas por vírgula
-        String saldoFormatado = saldo.toStringAsFixed(2).replaceAll('.', ',');
-        setState(() {
-          saldo = saldoFormatado;
-        });
-        return saldo;
-      } else {
-        return 'não encontrado';
-      }
-    } else {
-      return 'não encontrado';
+          return DB_Models(
+              descricao: item['${colecao.toLowerCase()}Descrição'],
+              valor: item['${colecao.toLowerCase()}Valor']
+                  .toStringAsFixed(2)
+                  .replaceAll('.', ','));
+        }).toList();
+      });
+    } catch (e) {
+      throw "Error ao tentar acessar dados $e";
     }
   }
 
@@ -74,7 +66,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
         backgroundColor: Cor.Primary50,
         body: RefreshIndicator(
-          onRefresh: dataBase,
+          onRefresh: DB_Firebase().buscarSaldo,
           child: SingleChildScrollView(
             child: Container(
               margin: EdgeInsets.only(bottom: 20),
@@ -99,14 +91,7 @@ class _HomeState extends State<Home> {
                                           color: Color.fromARGB(
                                               255, 105, 105, 105)),
                                     ),
-                                    Text(
-                                      'R\$ $saldo',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                          color: Color.fromARGB(
-                                              255, 105, 105, 105)),
-                                    )
+                                    Loading(screen: 'home'),
                                   ],
                                 ),
                               ),
@@ -135,7 +120,7 @@ class _HomeState extends State<Home> {
                                                       255, 105, 105, 105)),
                                             ),
                                             Text(
-                                              'R\$ 0,00',
+                                              'R\$ ${totalDespesas.toStringAsFixed(2).replaceAll('.', ',')}',
                                               style: TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w500,
@@ -155,7 +140,7 @@ class _HomeState extends State<Home> {
                                         Column(
                                           children: [
                                             Text(
-                                              'Receita',
+                                              'Receitas',
                                               style: TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w500,

@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:handfinance/Colors/cor.dart';
 import 'package:handfinance/Widgets/card.dart';
+import 'package:handfinance/Widgets/loading.dart';
 import 'package:handfinance/util/DB_Firebase.dart';
 import 'package:handfinance/util/models.dart';
 
@@ -18,6 +19,8 @@ class Planning extends StatefulWidget {
 class _PlanningState extends State<Planning> {
   List<DB_Models> models = [];
   User? user = FirebaseAuth.instance.currentUser;
+  double totalDespesas = 0;
+  double saldoTotal = 0;
 
   Future<void> buscarDados(String colecao) async {
     try {
@@ -28,6 +31,7 @@ class _PlanningState extends State<Planning> {
             .where((doc) => doc.data().isNotEmpty)
             .map((itens) {
           Map<String, dynamic> item = itens.data();
+          totalDespesas += item['${colecao.toLowerCase()}Valor'];
 
           return DB_Models(
               descricao: item['${colecao.toLowerCase()}Descrição'],
@@ -86,7 +90,7 @@ class _PlanningState extends State<Planning> {
                     child: ListView(
                       children: models.map((data) {
                         return HomeCards(
-                          titulo: 'Receita',
+                          titulo: 'Despesa',
                           conteudo: [
                             Column(
                               children: [
@@ -145,7 +149,7 @@ class _PlanningState extends State<Planning> {
                           'Saldo atual',
                           style: TextStyle(color: Cor.Primary50),
                         ),
-                        Text('R\$ 0,00', style: TextStyle(color: Cor.Primary50))
+                        Loading(screen: 'screen')
                       ],
                     ),
                     SizedBox(width: 70),
@@ -161,7 +165,8 @@ class _PlanningState extends State<Planning> {
                           'Total de despesas',
                           style: TextStyle(color: Cor.Primary50),
                         ),
-                        Text("R\$ 0,00",
+                        Text(
+                            "R\$ ${totalDespesas.toStringAsFixed(2).replaceAll('.', ',')}",
                             style: TextStyle(color: Cor.Primary50)),
                       ],
                     ),
